@@ -7,6 +7,16 @@ tasks = defaultdict()
 def get_id():
     return int(1000 * random.random())
 
+def read_file() -> dict:
+    with open("sample.json", "r") as f:
+        json_data = json.load(f)
+    return json_data
+
+def write_file(data: dict):
+    with open("sample.json", "w") as f:
+        json.dump(data, f)
+    
+
 def search():
     ":search:"
     pass
@@ -22,14 +32,16 @@ def add(description: str, status: bool, createdDate: str, updatedDate: None=None
     ID = get_id()
     task = [description, status, createdDate, updatedDate]
     # reading and converting the data to a dictionary
+    """
     with open("sample.json", "r") as read_file:
         json_data = json.load(read_file)
+    """
+    json_data = read_file()
     # add task to the dictionary
     json_data[ID] = task
     print(f" task: {json_data[ID]}")
     # write data back to dictionary
-    with open("sample.json", "w") as f:
-        json.dump(json_data, f)
+    write_file(json_data)
     print(json_data)
 
 def update(ID: int, new_description: str, updatedDate: str):
@@ -47,7 +59,12 @@ def update(ID: int, new_description: str, updatedDate: str):
     with open("sample.json", "w") as f:
         json.dump(json_data, f)
     
-def delete():
+def delete(ID: int):
+    # ID
+    # open file
+    
+    # del json_data[id]
+
     pass
 
 def mark():
@@ -94,7 +111,7 @@ def main():
 
          # take the description, overwrite, it and take the updated time, overwrite it.
     elif command == 'delete':
-        delete()
+        delete(ID)
     elif command ==  'list':
         list()
     elif command == ('mark-in-progress' or 'mark-done'):
