@@ -1,24 +1,34 @@
 import json, datetime, random
+from collections import defaultdict
+from enum import Enum 
 
-# dictionary object makes the most sense
+tasks = defaultdict()
 
-def write_task():
-    # opens file 
-    # checks if file is empty/doesnt exist
-        # writes to file
-        # converts file to object 
-        # writes in object
-        # converts to json
-        # writes to json file
-    pass
-def delete_task(id: int):
-    # take json 
-        # convert to object    
-        # search thru object
-        # delete the object
-    pass
-# update / read, are pretty similar and are jsut variations. finish me in morning
-    
+def get_id():
+    return int(1000 * random.random())
+
+def add(description: str, status: bool, createdDate: str, updatedDate: str | None=None):
+    """:add: adds the array to the json file through dictionary"""
+    ID = get_id()
+    task = [description, status, createdDate, updatedDate]
+    # reading and converting the data to a dictionary
+    with open("sample.json", "r") as read_file:
+        json_data = json.load(read_file)
+    # add task to the dictionary
+    json_data[ID] = task
+    print(f" task: {json_data[ID]}")
+    # write data back to dictionary
+    with open("sample.json", "w") as f:
+        json.dump(json_data, f)
+    print(json_data)
+
+
+   
+
+# read the current list, 
+# convert it to a dictionary, 
+# and then add it 
+
 
 def main(): 
     print("Please choose a command")
@@ -30,6 +40,22 @@ def main():
     print("list done")
     print("list todo")
     print("list in-progress")
+    """
+    # example of reading json file
+    with open("sample.json", "r") as f:
+        x = json.load(f)
+    print(type(x))
+    """
+
+    user_inp = input().split()
+    print(user_inp)
+    if user_inp[0] == 'add':
+        description = ' '.join(user_inp[1:])
+        add(description, False, str(datetime.datetime.now()), None)
+
+        
+
+
 
 
 
