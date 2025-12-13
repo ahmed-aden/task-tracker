@@ -7,7 +7,17 @@ tasks = defaultdict()
 def get_id():
     return int(1000 * random.random())
 
-def add(description: str, status: bool, createdDate: str, updatedDate: str | None=None):
+def search():
+    ":search:"
+    pass
+    # name 
+    # 1. read file d
+    # 3 searcg thruv dict
+    # update dict value od=f desctiotion and updated time 
+
+
+
+def add(description: str, status: bool, createdDate: str, updatedDate: None=None):
     """:add: adds the array to the json file through dictionary"""
     ID = get_id()
     task = [description, status, createdDate, updatedDate]
@@ -21,6 +31,32 @@ def add(description: str, status: bool, createdDate: str, updatedDate: str | Non
     with open("sample.json", "w") as f:
         json.dump(json_data, f)
     print(json_data)
+
+def update(ID: int, new_description: str, updatedDate: str):
+    pass
+    # name 
+    # 1. read file d
+    with open("sample.json", "r") as read_file:
+        json_data = json.load(read_file)
+    
+    # 3 searcg thruv dict
+    json_data[ID][0] = new_description
+    json_data[ID][3] = updatedDate 
+
+    # write json_data back into json
+    with open("sample.json", "w") as f:
+        json.dump(json_data, f)
+    
+def delete():
+    pass
+
+def mark():
+    pass
+
+def list():
+    pass
+
+
 
 
    
@@ -40,18 +76,33 @@ def main():
     print("list done")
     print("list todo")
     print("list in-progress")
-    """
-    # example of reading json file
-    with open("sample.json", "r") as f:
-        x = json.load(f)
-    print(type(x))
-    """
-
+    
     user_inp = input().split()
     print(user_inp)
-    if user_inp[0] == 'add':
+    
+    command = user_inp[0]
+    if command == 'add':
+        # example prompt: task-cli add "Buy groceries"
         description = ' '.join(user_inp[1:])
-        add(description, False, str(datetime.datetime.now()), None)
+        add(description, "todo", str(datetime.datetime.now()), None)
+        
+    elif command == 'update':
+        # example prompt: update 1 "Buy groceries and cook dinner"
+        ID = user_inp[1]
+        description = ' '.join(user_inp[2:])
+        update(ID, description, updatedDate=str(datetime.datetime.now()))
+
+         # take the description, overwrite, it and take the updated time, overwrite it.
+    elif command == 'delete':
+        delete()
+    elif command ==  'list':
+        list()
+    elif command == ('mark-in-progress' or 'mark-done'):
+        mark()
+
+
+    
+
 
         
 
