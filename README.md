@@ -4,4 +4,3 @@
     - list
     - mark
     - error handling
-- add python gui (TKINTER) 

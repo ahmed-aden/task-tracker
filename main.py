@@ -2,7 +2,6 @@ import json, datetime, random
 from collections import defaultdict
 from enum import Enum 
 
-tasks = defaultdict()
 
 def get_id():
     return int(1000 * random.random())
@@ -15,17 +14,6 @@ def read_file() -> dict:
 def write_file(data: dict):
     with open("sample.json", "w") as f:
         json.dump(data, f)
-    
-
-def search():
-    ":search:"
-    pass
-    # name 
-    # 1. read file d
-    # 3 searcg thruv dict
-    # update dict value od=f desctiotion and updated time 
-
-
 
 def add(description: str, status: bool, createdDate: str, updatedDate: None=None):
     """:add: adds the array to the json file through dictionary"""
@@ -45,32 +33,33 @@ def add(description: str, status: bool, createdDate: str, updatedDate: None=None
     print(json_data)
 
 def update(ID: int, new_description: str, updatedDate: str):
-    pass
     # name 
     # 1. read file d
-    with open("sample.json", "r") as read_file:
-        json_data = json.load(read_file)
+    json_data = read_file()
     
     # 3 searcg thruv dict
     json_data[ID][0] = new_description
     json_data[ID][3] = updatedDate 
 
     # write json_data back into json
-    with open("sample.json", "w") as f:
-        json.dump(json_data, f)
+    write_file(json_data)
     
 def delete(ID: int):
     # ID
     # open file
     
     # del json_data[id]
-
-    pass
+    json_data = read_file()
+    print(json_data[ID], f": {ID} deleted sucessfully")
+    del json_data[ID]
+    write_file(json_data)
 
 def mark():
+    # TODO: basic change status
     pass
 
 def list():
+    # TODOD: basic print
     pass
 
 
@@ -111,8 +100,9 @@ def main():
 
          # take the description, overwrite, it and take the updated time, overwrite it.
     elif command == 'delete':
+        ID = user_inp[1]
         delete(ID)
-    elif command ==  'list':
+    elif command ==  'list':git
         list()
     elif command == ('mark-in-progress' or 'mark-done'):
         mark()
