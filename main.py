@@ -54,9 +54,15 @@ def delete(ID: int) -> None:
     del json_data[ID]
     write_file(json_data)
 
-def mark():
-    # TODO: basic change status
-    pass
+def mark(cmd: str, ID: int) -> None:
+    json_data = read_file()
+    if cmd == 'mark-in-progress':
+        json_data[ID][1] = 'in-progress'
+    elif cmd == 'mark-done':
+        json_data[ID][1] = 'done'
+    print(json_data[ID])
+
+
 
 def list(mode: str='') -> None:
     # TODOD: basic print
@@ -114,7 +120,10 @@ def main():
 
         
     elif command == ('mark-in-progress' or 'mark-done'):
-        mark()
+        ID = user_inp[1]
+        mark(command, ID)
+    
+        
 
 
     
