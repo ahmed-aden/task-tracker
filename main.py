@@ -15,7 +15,7 @@ def write_file(data: dict):
     with open("sample.json", "w") as f:
         json.dump(data, f)
 
-def add(description: str, status: bool, createdDate: str, updatedDate: None=None):
+def add(description: str, status: str, createdDate: str, updatedDate: None=None) -> None:
     """:add: adds the array to the json file through dictionary"""
     ID = get_id()
     task = [description, status, createdDate, updatedDate]
@@ -32,7 +32,7 @@ def add(description: str, status: bool, createdDate: str, updatedDate: None=None
     write_file(json_data)
     print(json_data)
 
-def update(ID: int, new_description: str, updatedDate: str):
+def update(ID: int, new_description: str, updatedDate: str) -> None:
     # name 
     # 1. read file d
     json_data = read_file()
@@ -44,7 +44,7 @@ def update(ID: int, new_description: str, updatedDate: str):
     # write json_data back into json
     write_file(json_data)
     
-def delete(ID: int):
+def delete(ID: int) -> None:
     # ID
     # open file
     
@@ -58,9 +58,12 @@ def mark():
     # TODO: basic change status
     pass
 
-def list():
+def list(mode: str='') -> None:
     # TODOD: basic print
-    pass
+    json_data = read_file()
+    for k, v in json_data.items():
+        if v[1] == mode or mode == '':
+            print(k, v)
 
 
 
@@ -102,8 +105,14 @@ def main():
     elif command == 'delete':
         ID = user_inp[1]
         delete(ID)
-    elif command ==  'list':git
-        list()
+    elif command == 'list':
+        if len(user_inp) > 1:
+            command_type = user_inp[1]
+            list(command_type)
+        else:
+            list()
+
+        
     elif command == ('mark-in-progress' or 'mark-done'):
         mark()
 
