@@ -117,23 +117,11 @@ def main():
             list(command_type)
         else:
             list()
-
-        
-    elif command == ('mark-in-progress' or 'mark-done'):
+    elif command == 'mark-in-progress' or command == 'mark-done':
+        print("this branch got pushed!")
         ID = user_inp[1]
         mark(command, ID)
     
-        
-
-
-    
-
-
-        
-
-
-
-
 
 
 if __name__ == '__main__':
